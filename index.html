@@ -35,12 +35,14 @@
             chat.innerHTML += `<div><strong>You:</strong> ${input_message}</div>`;
             input.value = '';
 
+            console.log(input_message);
+
             fetch('/chat', {
                 method: 'POST',
                 headers: {'Content-Type' : 'application/json'},
-                body: JSON.stringify({input_message})
+                body: JSON.stringify({'input_message' : input_message})
             })
-                .then(res => res.json)
+                .then(res => res.json())
                 .then(data => {
                     chat.innerHTML += `<div><strong>AI:</strong> ${data.reply}</div>`;
                     //scrollTop is u scroll this amount from the top. scrollHeight is the total scrollable content
