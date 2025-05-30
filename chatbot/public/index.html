@@ -10,7 +10,7 @@
 
 
 <body style="text-align: center;">
-    <h1>Chat bot</h1>
+    <h1>Chat Bot</h1>
     
     <div id="chat" style="border: 1px solid; height: 250px; padding: 10px; overflow-y: auto; margin-bottom: 15px;">
         sdfjlsdkf
@@ -18,7 +18,46 @@
     
     <input type="text" id="User_input" placeholder="Enter a text"/>
 
-    <button></button>
+    <button onclick="sendMessage()">Send</button>
+
+
+    <script>
+        function sendMessage() {
+            const input = document.getElementById('User_input');
+            const input_message = input.value;
+            
+            if (!input_message) {
+                return;
+            }
+
+            const chat = document.getElementById('chat');
+            //here use backtick cuz we want ${message} just like bash. Also <strong> is like <b>
+            chat.innerHTML += `<div><strong>You:</strong> ${input_message}</div>`;
+            input.value = '';
+
+            fetch('/chat', {
+                method: 'POST',
+                headers: {'Content-Type' : 'application/json'},
+                body: JSON.stringify({input_message})
+            })
+                .then(res => res.json)
+                .then(data => {
+                    chat.innerHTML += `<div><strong>AI:</strong> ${data.reply}</div>`;
+                    //scrollTop is u scroll this amount from the top. scrollHeight is the total scrollable content
+                    chat.scrollTop = chat.scrollHeight; //so this scrolls all the way to bottom
+                })
+                .catch(error => {
+                    chat.innerHTML += `<div><strong>AI:</strong> (error)</div>`;
+                });
+        }
+    </script>
+
+
+
+
+
+
+
 </body>
 
 
