@@ -45,8 +45,8 @@
                 .then(res => res.json())
                 .then(data => {
                     chat.innerHTML += `<div><strong>AI:</strong> ${data.reply}</div>`;
-                    //scrollTop is u scroll this amount from the top. scrollHeight is the total scrollable content
-                    chat.scrollTop = chat.scrollHeight; //so this scrolls all the way to bottom
+                    //scrollTop is u scroll this amount from the top. scrollHeifdght is the total scrollable content
+                    chat.scrollTop = chat.scrollHeight; //so this scrolls all the way tokhkh bottom
                 })
                 .catch(error => {
                     chat.innerHTML += `<div><strong>AI:</strong> (error)</div>`;
